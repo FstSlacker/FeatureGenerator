@@ -27,6 +27,9 @@ namespace FeatureGenerator.Builders
 
             //PlayerComponent
             public const string PlayerComponent = "PlayerComponent.cs";
+
+            //Asmdef
+            public const string Asmdef = "Asmdef.asmdef";
         }
 
         public AppliedTemplateGroup Build(string featurePath)
@@ -51,6 +54,8 @@ namespace FeatureGenerator.Builders
             group.Add(Paths.Logic, builder.Build($"{featurePath}\\{Paths.Logic}"));
 
             group.Add(Paths.PlayerComponent, builder.Build($"{featurePath}\\{Paths.PlayerComponent}"));
+
+            group.Add(Paths.Asmdef, builder.Build($"{featurePath}\\{Paths.Asmdef}"));
 
             return group;
         }

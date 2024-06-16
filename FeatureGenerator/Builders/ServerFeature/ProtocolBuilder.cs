@@ -11,6 +11,8 @@ namespace FeatureGenerator.Builders
         static class Paths
         {
             public const string Protocol = "Protocol.cs";
+            //Asmdef
+            public const string Asmdef = "Asmdef.asmdef";
         }
 
         public AppliedTemplateGroup Build(string featurePath)
@@ -23,6 +25,7 @@ namespace FeatureGenerator.Builders
             AppliedTemplateGroup group = new AppliedTemplateGroup(_featureName);
 
             group.Add(Paths.Protocol, builder.Build($"{featurePath}\\{Paths.Protocol}"));
+            group.Add(Paths.Asmdef, builder.Build($"{featurePath}\\{Paths.Asmdef}"));
 
             return group;
         }
