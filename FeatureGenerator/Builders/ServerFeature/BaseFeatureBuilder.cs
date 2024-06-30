@@ -2,13 +2,13 @@
 {
     internal abstract class BaseFeatureBuilder
     {
+        protected readonly TemplateBuilder _templateBuilder;
         protected readonly string _featureName;
-        protected readonly string[] _actions;
 
         public BaseFeatureBuilder(string featureName, string[] actions)
         {
             _featureName = featureName;
-            _actions = actions;
+            _templateBuilder = new TemplateBuilder(featureName, actions);
         }
     }
 }

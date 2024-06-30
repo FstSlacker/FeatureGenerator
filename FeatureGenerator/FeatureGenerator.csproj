@@ -51,9 +51,7 @@
   <ItemGroup>
     <Compile Include="Builders\ServerFeature\AppliedTemplateGroup.cs" />
     <Compile Include="Builders\ServerFeature\BaseFeatureBuilder.cs" />
-    <Compile Include="Builders\ServerFeature\ClientBuilder.cs" />
-    <Compile Include="Builders\ServerFeature\ProtocolBuilder.cs" />
-    <Compile Include="Builders\ServerFeature\ServerBuilder.cs" />
+    <Compile Include="Builders\ServerFeature\DirectoryBuilder.cs" />
     <Compile Include="Builders\ServerFeature\TemplateBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

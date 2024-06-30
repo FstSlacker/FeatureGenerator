@@ -7,7 +7,22 @@ namespace FeatureGenerator.Builders
 {
     internal class TemplateBuilder
     {
-        List<Action<Template>> templateBindings = new List<Action<Template>>();
+        List<Action<Template>> _templateBindings;
+
+        public TemplateBuilder(string featureName, string[] actionNames)
+        {
+            _templateBindings = new List<Action<Template>>
+            {
+                (t) => t.Add("featureName", featureName),
+                (t) =>
+                {
+                    foreach (string name in actionNames)
+                    {
+                        t.AddMany("actions.{actionName}", name);
+                    }
+                }
+            };
+        }
 
         public Template Build(string templatePath)
         {
@@ -18,33 +33,19 @@ namespace FeatureGenerator.Builders
                 data = sr.ReadToEnd();
             }
 
-            Template template = new Template(data, '$', '$');
+            return BuildFromText(data);
+        }
 
-            foreach(Action<Template> action in templateBindings) 
-            { 
-                action(template); 
+        public Template BuildFromText(string text)
+        {
+            Template template = new Template(text, '$', '$');
+
+            foreach (Action<Template> action in _templateBindings)
+            {
+                action(template);
             }
 
             return template;
-        }
-
-        public TemplateBuilder AddFeatureName(string name)
-        {
-            templateBindings.Add((t) => t.Add("featureName", name));
-            return this;
-        }
-
-        public TemplateBuilder AddActions(IEnumerable<string> actionNames)
-        {
-            templateBindings.Add((t) =>
-            {
-                foreach (string name in actionNames)
-                {
-                    t.AddMany("actions.{actionName}", name);
-                }
-            });
-
-            return this;
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.IO;
-using Antlr4.StringTemplate;
 using FeatureGenerator.Builders;
+using FeatureGenerator.Builders.ServerFeature;
 
 namespace FeatureGenerator
 {
@@ -15,6 +14,8 @@ namespace FeatureGenerator
             string clientFeaturesPath = Console.ReadLine();
             Console.WriteLine("Input protocol features path:");
             string protocolFeaturesPath = Console.ReadLine();
+            Console.WriteLine("Input config features path:");
+            string configFeaturesPath = Console.ReadLine();
 
             Console.WriteLine("Input feature name:");
             string featureName = Console.ReadLine();
@@ -32,17 +33,17 @@ namespace FeatureGenerator
                 actions[i] = actionName;
             }
 
-            ServerBuilder sb = new ServerBuilder(featureName, actions);
-            ClientBuilder cb = new ClientBuilder(featureName, actions);
-            ProtocolBuilder pb = new ProtocolBuilder(featureName, actions);
+            DirectoryBuilder db = new DirectoryBuilder(featureName, actions);
 
-            AppliedTemplateGroup sg = sb.Build("Templates\\Server");
-            AppliedTemplateGroup cg = cb.Build("Templates\\Client");
-            AppliedTemplateGroup pg = pb.Build("Templates\\Protocol");
+            AppliedTemplateGroup sg = db.Build("Templates\\Server");
+            AppliedTemplateGroup cg = db.Build("Templates\\Client");
+            AppliedTemplateGroup pg = db.Build("Templates\\Protocol");
+            AppliedTemplateGroup cfg = db.Build("Templates\\Config");
 
             sg.Save(serverFeaturesPath);
             cg.Save(clientFeaturesPath);
             pg.Save(protocolFeaturesPath);
+            cfg.Save(configFeaturesPath);
         }
     }
 }
